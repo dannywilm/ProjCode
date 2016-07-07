@@ -1,0 +1,26 @@
+using UnityEngine;
+using System.Collections;
+
+public class ButtonClick : MonoBehaviour {
+    
+    public UnityEngine.UI.Text clickForAge;
+    public float clickPoint;
+    public int skillPerClick = 1;
+    public int count = 0;
+
+    void Update()
+    {
+        clickForAge.text = clickPoint + " click";
+    }
+
+    public void clicked()
+    {
+        clickPoint += skillPerClick;
+
+        if (clickPoint == 100)
+        {
+            clickPoint -= 100;
+            count++;
+        }
+    }
+}
