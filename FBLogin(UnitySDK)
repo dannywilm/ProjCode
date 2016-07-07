@@ -1,0 +1,150 @@
+using UnityEngine;
+using UnityEngine.UI;
+using System.Collections;
+using System.Collections.Generic;
+using Facebook.Unity;
+
+public class FBScript : MonoBehaviour
+{
+
+    public GameObject DialogLoggedIn;
+    public GameObject DialogLoggedOut;
+    public GameObject DialogUsername;
+    public GameObject DialogProfilePic;
+
+    void Awake()
+    {
+        if (!FB.IsInitialized)
+        {
+            // Initialize the Facebook SDK
+            FB.Init(InitCallback, OnHideUnity);
+        }
+        else
+        {
+            // Already initialized, signal an app activation App Event
+            FB.ActivateApp();
+        }
+    }
+
+    void InitCallback()
+    {
+        if (FB.IsInitialized)
+        {
+            // Signal an app activation App Event
+            FB.ActivateApp();
+            // Continue with Facebook SDK
+            // ...
+            if (FB.IsLoggedIn)
+            {
+                Debug.Log("FB is Logged In");
+            }
+            else
+            {
+                Debug.Log("FB is Not Logged In");
+            }
+        }
+        else
+        {
+            Debug.Log("Failed to Initialize the Facebook SDK");
+        }
+
+        DealWithFBMenus(FB.IsLoggedIn);
+    }
+
+    void OnHideUnity(bool isGameShown)
+    {
+        if (!isGameShown)
+        {
+            //pause
+            Time.timeScale = 0;
+        }
+        else
+        {
+            Time.timeScale = 1;
+        }
+    }
+
+    public void FBLogin()
+    {
+        //weird, first time this need to uncomment or i receive FB.Init error, after that it run smoothly without it
+        //      Awake ();
+
+        var permissions = new List<string>() { "public_profile", "email", "user_friends" };
+        permissions.Add("public_profile");
+        permissions.Add("email");
+        permissions.Add("user_friends");
+
+        FB.LogInWithReadPermissions(permissions, AuthCallback);
+    }
+
+
+    void AuthCallback(ILoginResult result)
+    {
+        if (result.Error != null)
+        {
+            Debug.Log(result.Error);
+        }
+        else
+        {
+            if (FB.IsLoggedIn)
+            {
+                // AccessToken class will have session details
+                var aToken = Facebook.Unity.AccessToken.CurrentAccessToken;
+                // Print current access token's User ID
+                Debug.Log(aToken.UserId);
+                // Print current access token's granted permissions
+                foreach (string perm in aToken.Permissions)
+                {
+                    Debug.Log(perm);
+                }
+            }
+            else
+            {
+                Debug.Log("User cancelled login");
+            }
+        }
+
+        DealWithFBMenus(FB.IsLoggedIn);
+    }
+
+    void DealWithFBMenus(bool isLoggedIn)
+    {
+        if (isLoggedIn)
+        {
+            DialogLoggedIn.SetActive(true);
+            DialogLoggedOut.SetActive(false);
+
+            FB.API("/me?fields=first_name", HttpMethod.GET, DisplayUsername);
+            FB.API("/me/picture?type=square&height=100&width=100", HttpMethod.GET, DisplayProfilePic);
+
+        } else
+        {
+            DialogLoggedIn.SetActive(false);
+            DialogLoggedOut.SetActive(true);
+        }
+    }
+
+    void DisplayUsername(IResult result)
+    {
+        Text UserName = DialogUsername.GetComponent<Text>();
+
+        if (result.Error == null)
+        {
+            UserName.text = "Hi, there " + result.ResultDictionary["first_name"];
+        } else
+        {
+            Debug.Log(result.Error);
+        }
+    }
+
+    void DisplayProfilePic(IGraphResult result)
+    {
+        if(result.Texture != null)
+        {
+            Image ProfilePic = DialogProfilePic.GetComponent<Image>();
+
+            ProfilePic.sprite = Sprite.Create(result.Texture, new Rect(0, 0, 100, 100), new Vector2());
+        }
+
+    }
+}
