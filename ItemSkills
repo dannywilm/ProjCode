@@ -1,0 +1,29 @@
+using UnityEngine;
+using System.Collections;
+
+public class ItemSkills : MonoBehaviour {
+
+    public ButtonClick click;
+    public UnityEngine.UI.Text ItemBox;
+    public string ItemName;
+    public float cost;
+    public int count;
+    public int PowerClick;
+
+    void Update()
+    {
+        ItemBox.text = ItemName + "\nCost : " + cost + "\n+" + PowerClick + "/Click";
+    }
+
+    public void PurchasedItem()
+    {
+        if (click.clickPoint >= cost)
+        {
+            click.clickPoint -= cost;
+            click.skillPerClick += PowerClick;
+            count++;
+
+            cost = Mathf.Round(cost * 1.15f);
+        }
+    }
+}
