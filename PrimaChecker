@@ -3,25 +3,25 @@
 
 main()
 {
-	int p[10];	// nilai untuk menampung bilangan
+   int p[10];	// nilai untuk menampung bilangan
    int k;	// variable yang menentukan bilangan prima
 
    cout << "Masukkan 10 bilangan" << endl;
 
    for (int i = 1; i <= 10; 	i++)	// for untuk input bilangan
    {
-   	cout << "Input nilai ke-" << i << " : ";
+      cout << "Input nilai ke-" << i << " : ";
       cin >> p[i];
    }
 
    for (int i = 1; i <= 10; i++)	// untuk mendeklar dan mencari bilangan prima
    {
-   	k = 0;	// menetralisir bilangan jadi 0
-   	for (int j = 1; j <= p[i]; j++)	// cek semua bilangan
+      k = 0;	// menetralisir bilangan jadi 0
+      for (int j = 1; j <= p[i]; j++)	// cek semua bilangan
       {
       	if (p[i] % j == 0)	// apabila bilangan di modulus j sama dengan 0
          {
-         	k++;	// maka nilai k di tambah
+             k++;	// maka nilai k di tambah
          }
       }
 
