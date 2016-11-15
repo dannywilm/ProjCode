@@ -1,0 +1,69 @@
+#include <iostream>
+#include <conio>
+#include <cstring>
+
+main()
+{
+   struct data_MK
+   {
+     	string matkul;
+      float sks;
+      float nilai;
+   };
+
+   data_MK mk[10];
+   float n, nP, sks, jSKS, nilai, ipk;
+
+   sks = 0;
+   nilai = 0;
+
+   cout << "Masukkan jumlah mata kuliah : ";
+   cin >> n;
+
+   for (int i = 1; i <= n; i++)
+   {
+     	cout << "Mata Kuliah ke " << i << endl;
+      cout << "Nama mata kuliah : ";
+      cin >> mk[i].matkul;
+
+      cout << "Jumlah SKS : ";
+      cin >> mk[i].sks;
+
+      cout << "Nilai : ";
+      cin >> mk[i].nilai;
+
+      if(mk[i].nilai >= 80 && mk[i].nilai <= 100)
+      {
+      	nP = 4;
+      } else if (mk[i].nilai >= 60 && mk[i].nilai < 80)
+      {
+      	nP = 3;
+      } else if (mk[i].nilai >= 40 && mk[i].nilai < 60)
+      {
+      	nP = 2;
+      } else if(mk[i].nilai >= 10 && mk[i].nilai < 40)
+      {
+      	nP = 1;
+      }
+
+      nilai = nilai + (nP * mk[i].sks);
+
+      jSKS = jSKS + mk[i].sks;
+   }
+
+   ipk = nilai / jSKS;
+
+   cout << "Rata rata IPK anda : " << ipk << endl;
+
+   if (ipk == 4)
+   	cout << "GRADE anda A" << endl;
+   else if (ipk >= 3)
+   	cout << "GRADE anda B" << endl;
+   else if (ipk >= 2)
+   	cout << "GRADE anda C" << endl;
+   else if (ipk >= 1)
+   	cout << "GRADE anda D" << endl;
+
+   getch();
+}
+
