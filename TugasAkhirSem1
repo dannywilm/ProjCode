@@ -28,42 +28,42 @@ int hS2[4];
 
 main()
 {
-  	cout << "-----------------------------------------------------------------------\n";
-    cout << "\t\t-- PT SEWA MOBIL IT UBM--" << endl;
-    cout << "-----------------------------------------------------------------------\n";
-    cout << "\nNama anda" << setw(15) << " : ";
-     getline(cin, nama);
+	cout << "-----------------------------------------------------------------------\n";
+   cout << "\t\t-- PT SEWA MOBIL IT UBM--" << endl;
+   cout << "-----------------------------------------------------------------------\n";
+   cout << "\nNama anda" << setw(15) << " : ";
+   getline(cin, nama);
 
-     cout << "Tanggal Sewa" << setw(12) << " : ";
-     getline(cin, tS);
+   cout << "Tanggal Sewa" << setw(12) << " : ";
+   getline(cin, tS);
 
-    cout << "Jumlah Sewa Mobil" << setw(7) << " : ";
-    cin >> sM;
+   cout << "Jumlah Sewa Mobil" << setw(7) << " : ";
+   cin >> sM;
 
- 	  menu();
-	  pPembelian();
-  	dataPembeli();
-    getch();
+ 	menu();
+	pPembelian();
+	dataPembeli();
+   getch();
 }
 
 void menu()
 {
-	  cout << "\n-----------------------------------------------------------------------\n";
-	  cout << "No.|\t" << "Kode Mobil" << "\t|\t" << "Nama Mobil" << "\t|\t" << "Harga + Pajak" << endl;
-    cout << "-----------------------------------------------------------------------\n";
+	cout << "\n-----------------------------------------------------------------------\n";
+	cout << "No.|\t" << "Kode Mobil" << "\t|\t" << "Nama Mobil" << "\t|\t" << "Harga + Pajak" << endl;
+   cout << "-----------------------------------------------------------------------\n";
 
-     for (int i = 1; i <= 4; i++)
-     {
-      	cout << i << "  |\t " << kM[i-1] << "\t\t|\t" << jM[i-1] << "\t|\tRp. " << hS[i-1] << endl;
-     }
-     cout << "-----------------------------------------------------------------------\n";
+   for (int i = 1; i <= 4; i++)
+   {
+   	cout << i << "  |\t " << kM[i-1] << "\t\t|\t" << jM[i-1] << "\t|\tRp. " << hS[i-1] << endl;
+   }
+   cout << "-----------------------------------------------------------------------\n";
 }
 
 void pPembelian()
 {
-	  for (int i = 1; i <= sM; i++)
-    {
-   	  cout << "Masukkan No mobil [1-4] : ";
+	for (int i = 1; i <= sM; i++)
+   {
+   	cout << "Masukkan No mobil [1-4] : ";
       cin >> nmrMobil;
 
       cout << "Jenis Mobil : " << jM[nmrMobil-1] << endl << endl;
@@ -74,6 +74,8 @@ void pPembelian()
 
       hargaSewa = hargaSewa + hS[nmrMobil-1];
    }
+
+   cout << "Tekan ENTER untuk melanjutkan" << endl;
 
    getch();
 
@@ -102,21 +104,21 @@ void pPembelian()
 void dataPembeli()
 {
 	clrscr();
-  	cout << "-----------------------------------------------------------------------\n";
-    cout << "\t\t-- PT SEWA MOBIL IT UBM--" << endl;
-    cout << "-----------------------------------------------------------------------\n";
-    cout << "\nNama \t\t : " << nama << endl;
-    cout << "Tanggal Sewa \t : " << tS << endl;
+ 	cout << "-----------------------------------------------------------------------\n";
+   cout << "\t\t-- PT SEWA MOBIL IT UBM--" << endl;
+   cout << "-----------------------------------------------------------------------\n";
+   cout << "\nNama \t\t : " << nama << endl;
+   cout << "Tanggal Sewa \t : " << tS << endl;
 
- 	  cout << "\n-----------------------------------------------------------------------\n";
-	  cout << "No.|\t" << "Kode Mobil" << "\t|\t" << "Nama Mobil" << "\t|\t" << "Harga + Pajak" << endl;
-    cout << "-----------------------------------------------------------------------\n";
+ 	cout << "\n-----------------------------------------------------------------------\n";
+	cout << "No.|\t" << "Kode Mobil" << "\t|\t" << "Nama Mobil" << "\t|\t" << "Harga + Pajak" << endl;
+   cout << "-----------------------------------------------------------------------\n";
 
 
 
    for (int i = 1; i <= sM; i++)
    {
-   	  cout << i << "  |\t " << kM2[i-1] << "\t\t|\t" << jM2[i-1] << "\t|\tRp. " << hS2[i-1] << endl;
+   	cout << i << "  |\t " << kM2[i-1] << "\t\t|\t" << jM2[i-1] << "\t|\tRp. " << hS2[i-1] << endl;
    }
    cout << "-----------------------------------------------------------------------\n";
 
