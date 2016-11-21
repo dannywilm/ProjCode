@@ -22,9 +22,9 @@ string jM[4] = {"Honda Accord", "Nissan Cefiro", "Lexus LS600HL", "Mitsubishi Ku
 string kM[4] = {"H4CD", "N3F0", "LS60", "MK15"};	// kode Mobil
 int hS[4] = {550000, 850000, 1400000, 2500000}; // harga Sewa
 
-string jM2[4];
-string kM2[4];
-int hS2[4];
+string jM2[100];
+string kM2[100];
+int hS2[100];
 
 main()
 {
