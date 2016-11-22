@@ -126,3 +126,163 @@ void dataPembeli()
    cout << "\nAnda mendapat potongan sebesar : " << hargaDiskon << endl;
    cout << "Total Harga + Diskon : Rp. " << hargaTotal << endl;
 }
+//Tugas Akhir
+
+#include <iostream>
+#include <conio>
+#include <cstring.h>
+#include <iomanip>
+
+void pPembelian();
+void menu();
+void dataPembeli();
+
+string nama;
+string tS;	// tanggal sewa
+int sM;	// sewa Mobil
+int lS = 0; 	// lama Sewa
+int nmrMobil,m,n,o;
+int hargaSewa = 0;
+int hargaDiskon = 0;
+int hargaTotal = 0;
+int pass ();
+
+string jM[4] = {"Honda Accord", "Nissan Cefiro", "Lexus LS600HL", "Mitsubishi Kuda"}; // jenis Mobil
+string kM[4] = {"H4CD", "N3F0", "LS60", "MK15"};	// kode Mobil
+int hS[4] = {30000, 35000, 40000, 50000}; // harga Sewa
+
+string jM2[100];
+string kM2[100];
+int hS2[100];
+
+main()
+{
+	cout << "-----------------------------------------------------------------------\n";
+   cout << "\t\t-- PT SEWA MOBIL IT UBM--" << endl;
+   cout << "-----------------------------------------------------------------------\n";
+   cout << "\nNama anda" << setw(15) << " : ";
+   getline(cin, nama);
+
+   cout << "Tanggal Sewa" << setw(12) << " : ";
+   getline(cin, tS);
+
+   cout << "Jumlah Sewa Mobil" << setw(7) << " : ";
+   cin >> sM;
+
+ 	menu();
+	pPembelian();
+	dataPembeli();
+   getch();
+}
+
+void menu()
+{
+	cout << "\n-----------------------------------------------------------------------\n";
+	cout << "No.|\t" << "Kode Mobil" << "\t|\t" << "Nama Mobil" << "\t|\t" << "Harga + Pajak" << endl;
+   cout << "-----------------------------------------------------------------------\n";
+
+   for (int i = 1; i <= 4; i++)
+   {
+   	cout << i << "  |\t " << kM[i-1] << "\t\t|\t" << jM[i-1] << "\t|\tRp. " << hS[i-1] << endl;
+   }
+   cout << "-----------------------------------------------------------------------\n";
+}
+
+void pPembelian()
+{
+	for (int i = 1; i <= sM; i++)
+   {
+   	cout << "Masukkan No mobil [1-4] : ";
+      cin >> nmrMobil;
+
+      cout << "Jenis Mobil : " << jM[nmrMobil-1] << endl << endl;
+
+      jM2[i-1] = jM[nmrMobil-1];
+      hS2[i-1] = hS[nmrMobil-1];
+      kM2[i-1] = kM[nmrMobil-1];
+
+      hargaSewa = hargaSewa + hS[nmrMobil-1];
+   }
+
+   cout << "Tekan ENTER untuk melanjutkan" << endl;
+
+   getch();
+
+   clrscr();
+   cout << "-----------------------------------------------------------------------\n";
+   cout << "\t\t-- PT SEWA MOBIL IT UBM--" << endl;
+   cout << "-----------------------------------------------------------------------\n";
+
+   cout << "Total Harga : Rp. " << hargaSewa << endl;
+   cout << "*Harga belum termasuk diskon" << endl << endl;
+
+   cout << "*Lama sewa di atas 15 jam dapat diskon 20%" << endl;
+   cout << "Lama Sewa : ";
+   cin >> lS;
+
+   if (lS > 15)
+   {
+   	hargaDiskon = hargaSewa * 0.2;
+   }
+   else
+   {
+   	hargaDiskon = 0;
+   }
+}
+
+void dataPembeli()
+{
+	clrscr();
+ 	cout << "-----------------------------------------------------------------------\n";
+   cout << "\t\t-- PT SEWA MOBIL IT UBM--" << endl;
+   cout << "-----------------------------------------------------------------------\n";
+   cout << "\nNama \t\t : " << nama << endl;
+   cout << "Tanggal Sewa \t : " << tS << endl;
+
+ 	cout << "\n-----------------------------------------------------------------------\n";
+
+	cout << "No.|\t" << "Kode Mobil" << "\t|\t" << "Nama Mobil" << "\t|\t" << "Harga + Pajak" << endl;
+   cout << "-----------------------------------------------------------------------\n";
+
+	for (int i = 1; i <= sM; i++)
+   {
+   	cout << i << "  |\t " << kM2[i-1] << "\t\t|\t" << jM2[i-1] << "\t|\tRp. " << hS2[i-1] << endl;
+   }
+   cout << "-----------------------------------------------------------------------\n";
+
+   hargaTotal = (hargaSewa - hargaDiskon) * lS;
+   cout << "\nAnda mendapat potongan sebesar : " << hargaDiskon << endl;
+   cout << "Total Harga + Diskon : Rp. " << hargaTotal << endl;
+
+   bayar:
+   cout << endl << endl;
+   cout << "Pilih Metode Pembayaran <1/2> \n";
+   cout << "1. Cash\t\n";
+   cout << "2. Debit \t\n";
+   cin>>n;
+   if (n==1)
+   	{
+
+      	cout << "Total Harga + Diskon : Rp. " << hargaTotal << endl;
+        	cout << "Bayar \t : Rp. ";cin>>m;
+
+        	if (m < hargaTotal)
+        	{
+        		cout << "Uang anda tidak mencukupi!!" << endl;
+            goto bayar;
+        	}
+        	else if (m >= hargaTotal)
+        	{
+        		cout << "Kembalian \t : Rp. "<<(m-hargaTotal)<<endl;
+        	}
+
+      }
+   if (n==2)
+   	{ 	cout << "Total Harga + Diskon : Rp. " << hargaTotal << endl;
+      	cout << " No. Kartu Debit : ";cin>>o;
+
+         cout << " Total Transaksi : Rp. "<< hargaTotal << endl;
+         cout << " Transaksi Anda Berhasil ";
+      }
+
+}
