@@ -54,13 +54,20 @@ main()
 	pPembelian();
 	dataPembeli();
 
+   pilihan:
+   clrscr();
    cout << "TRANSAKSI BARU [y / n] : ";
    cin >> pil;
 
-   if (pil == 'y')
+   if (pil == 'y' || 'Y')
    	goto start;
-   else if (pil == 'n')
+   else if (pil == 'n' || 'N')
    	mulaiLagi();
+   else
+   {
+   	cout << "Input salah, silahkan ulang :)" << endl;
+      goto pilihan;
+   }
 
    getch();
 }
@@ -80,6 +87,7 @@ void menu()
 
 void pPembelian()
 {
+	hargaSewa = 0;
 	for (int i = 1; i <= sM; i++)
    {
    	cout << "Masukkan No mobil [1-4] : ";
@@ -94,6 +102,7 @@ void pPembelian()
       hargaSewa = hargaSewa + hS[nmrMobil-1];
    }
 
+   cout << "tekan ENTER untuk melanjutkan" << endl;
    getch();
 
    clrscr();
@@ -102,7 +111,7 @@ void pPembelian()
    cout << "-----------------------------------------------------------------------\n";
 
    cout << "Total Harga : Rp. " << hargaSewa << endl;
-   cout << "*Harga belum termasuk diskon" << endl << endl;
+   cout << "*Harga belum termasuk diskon dan jam sewa" << endl << endl;
 
    cout << "*Lama sewa di atas 15 jam dapat diskon 20%" << endl;
    cout << "Lama Sewa : ";
@@ -147,6 +156,7 @@ void dataPembeli()
    cout << "Pilih Metode Pembayaran <1/2> \n";
    cout << "1. Cash\t\n";
    cout << "2. Debit \t\n";
+   cout << "-> ";
    cin>>n;
    if (n==1)
    	{
@@ -174,19 +184,45 @@ void dataPembeli()
       }
 
    pendapatan[ulang-1] = hargaTotal;
+
+   getch();
 }
 
 void mulaiLagi()
 {
-	int totalPendapatan;
+	clrscr();
+	int totalPendapatan = 0;
 
+	cout << "----------------------------------------" << endl;
 	cout << "Pendapatan PT SEWA MOBIL IT UBM hari ini" << endl;
+   cout << "----------------------------------------" << endl;
 
    for (int i = 0; i < ulang; i++)
    {
-   	cout << "Rp. " << pendapatan[i] << endl;
-      totalPendapatan += pendapatan[i];
+   	totalPendapatan = totalPendapatan + pendapatan[i];
    }
 
-   cout << "Total pendapatan anda hari ini --> Rp. " << totalPendapatan << endl;
+   for (int i = 0; i < ulang; i++)
+   {
+   	for (int j = i+1; j < ulang; j++)
+      {
+			if (pendapatan[j] < pendapatan[i])
+         {
+         	int temp;
+
+            temp = pendapatan[j];
+            pendapatan[j] = pendapatan[i];
+            pendapatan[i] = temp;
+         }
+      }
+   }
+
+   for (int i = 0; i < ulang; i++)
+   {
+   	cout << (i+1) <<"\t\tRp. " << pendapatan[i] << endl;
+   }
+
+   cout << "----------------------------------------" << endl;
+   cout << "Total \t\tRp. " << totalPendapatan << endl;
+   cout << "----------------------------------------" << endl;
 }
