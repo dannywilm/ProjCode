@@ -8,134 +8,7 @@
 void pPembelian();
 void menu();
 void dataPembeli();
-
-string nama;
-string tS;	// tanggal sewa
-int sM;	// sewa Mobil
-int lS = 0; 	// lama Sewa
-int nmrMobil;
-int hargaSewa = 0;
-int hargaDiskon = 0;
-int hargaTotal = 0;
-
-string jM[4] = {"Honda Accord", "Nissan Cefiro", "Lexus LS600HL", "Mitsubishi Kuda"}; // jenis Mobil
-string kM[4] = {"H4CD", "N3F0", "LS60", "MK15"};	// kode Mobil
-int hS[4] = {550000, 850000, 1400000, 2500000}; // harga Sewa
-
-string jM2[100];
-string kM2[100];
-int hS2[100];
-
-main()
-{
-	cout << "-----------------------------------------------------------------------\n";
-   cout << "\t\t-- PT SEWA MOBIL IT UBM--" << endl;
-   cout << "-----------------------------------------------------------------------\n";
-   cout << "\nNama anda" << setw(15) << " : ";
-   getline(cin, nama);
-
-   cout << "Tanggal Sewa" << setw(12) << " : ";
-   getline(cin, tS);
-
-   cout << "Jumlah Sewa Mobil" << setw(7) << " : ";
-   cin >> sM;
-
- 	menu();
-	pPembelian();
-	dataPembeli();
-   getch();
-}
-
-void menu()
-{
-	cout << "\n-----------------------------------------------------------------------\n";
-	cout << "No.|\t" << "Kode Mobil" << "\t|\t" << "Nama Mobil" << "\t|\t" << "Harga + Pajak" << endl;
-   cout << "-----------------------------------------------------------------------\n";
-
-   for (int i = 1; i <= 4; i++)
-   {
-   	cout << i << "  |\t " << kM[i-1] << "\t\t|\t" << jM[i-1] << "\t|\tRp. " << hS[i-1] << endl;
-   }
-   cout << "-----------------------------------------------------------------------\n";
-}
-
-void pPembelian()
-{
-	for (int i = 1; i <= sM; i++)
-   {
-   	cout << "Masukkan No mobil [1-4] : ";
-      cin >> nmrMobil;
-
-      cout << "Jenis Mobil : " << jM[nmrMobil-1] << endl << endl;
-
-      jM2[i-1] = jM[nmrMobil-1];
-      hS2[i-1] = hS[nmrMobil-1];
-      kM2[i-1] = kM[nmrMobil-1];
-
-      hargaSewa = hargaSewa + hS[nmrMobil-1];
-   }
-
-   cout << "Tekan ENTER untuk melanjutkan" << endl;
-
-   getch();
-
-   clrscr();
-   cout << "-----------------------------------------------------------------------\n";
-   cout << "\t\t-- PT SEWA MOBIL IT UBM--" << endl;
-   cout << "-----------------------------------------------------------------------\n";
-
-   cout << "Total Harga : Rp. " << hargaSewa << endl;
-   cout << "*Harga belum termasuk diskon" << endl << endl;
-
-   cout << "*Lama sewa di atas 12 jam dapat diskon 20%" << endl;
-   cout << "Lama Sewa : ";
-   cin >> lS;
-
-   if (lS > 12)
-   {
-   	hargaDiskon = hargaSewa * 0.2;
-   }
-   else
-   {
-   	hargaDiskon = 0;
-   }
-}
-
-void dataPembeli()
-{
-	clrscr();
- 	cout << "-----------------------------------------------------------------------\n";
-   cout << "\t\t-- PT SEWA MOBIL IT UBM--" << endl;
-   cout << "-----------------------------------------------------------------------\n";
-   cout << "\nNama \t\t : " << nama << endl;
-   cout << "Tanggal Sewa \t : " << tS << endl;
-
- 	cout << "\n-----------------------------------------------------------------------\n";
-	cout << "No.|\t" << "Kode Mobil" << "\t|\t" << "Nama Mobil" << "\t|\t" << "Harga + Pajak" << endl;
-   cout << "-----------------------------------------------------------------------\n";
-
-
-
-   for (int i = 1; i <= sM; i++)
-   {
-   	cout << i << "  |\t " << kM2[i-1] << "\t\t|\t" << jM2[i-1] << "\t|\tRp. " << hS2[i-1] << endl;
-   }
-   cout << "-----------------------------------------------------------------------\n";
-
-   hargaTotal = (hargaSewa - hargaDiskon) * lS;
-   cout << "\nAnda mendapat potongan sebesar : " << hargaDiskon << endl;
-   cout << "Total Harga + Diskon : Rp. " << hargaTotal << endl;
-}
-//Tugas Akhir
-
-#include <iostream>
-#include <conio>
-#include <cstring.h>
-#include <iomanip>
-
-void pPembelian();
-void menu();
-void dataPembeli();
+void mulaiLagi();
 
 string nama;
 string tS;	// tanggal sewa
@@ -155,8 +28,16 @@ string jM2[100];
 string kM2[100];
 int hS2[100];
 
+int pendapatan[100], p, ulang = 0;
+
 main()
 {
+	char pil;
+
+	start:
+   ulang++;
+   clrscr();
+
 	cout << "-----------------------------------------------------------------------\n";
    cout << "\t\t-- PT SEWA MOBIL IT UBM--" << endl;
    cout << "-----------------------------------------------------------------------\n";
@@ -172,6 +53,15 @@ main()
  	menu();
 	pPembelian();
 	dataPembeli();
+
+   cout << "TRANSAKSI BARU [y / n] : ";
+   cin >> pil;
+
+   if (pil == 'y')
+   	goto start;
+   else if (pil == 'n')
+   	mulaiLagi();
+
    getch();
 }
 
@@ -203,8 +93,6 @@ void pPembelian()
 
       hargaSewa = hargaSewa + hS[nmrMobil-1];
    }
-
-   cout << "Tekan ENTER untuk melanjutkan" << endl;
 
    getch();
 
@@ -285,4 +173,20 @@ void dataPembeli()
          cout << " Transaksi Anda Berhasil ";
       }
 
+   pendapatan[ulang-1] = hargaTotal;
+}
+
+void mulaiLagi()
+{
+	int totalPendapatan;
+
+	cout << "Pendapatan PT SEWA MOBIL IT UBM hari ini" << endl;
+
+   for (int i = 0; i < ulang; i++)
+   {
+   	cout << "Rp. " << pendapatan[i] << endl;
+      totalPendapatan += pendapatan[i];
+   }
+
+   cout << "Total pendapatan anda hari ini --> Rp. " << totalPendapatan << endl;
 }
