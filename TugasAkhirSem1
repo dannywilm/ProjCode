@@ -18,7 +18,9 @@ int nmrMobil,m,n,o;
 int hargaSewa = 0;
 int hargaDiskon = 0;
 int hargaTotal = 0;
-int pass; // menampung password
+int pass;// menampung password
+string kV;
+int hP;
 
 string jM[4] = {"Honda Accord", "Nissan Cefiro", "Lexus LS600HL", "Mitsubishi Kuda"}; // jenis Mobil
 string kM[4] = {"H4CD", "N3F0", "LS60", "MK15"};	// kode Mobil
@@ -29,6 +31,7 @@ string kM2[100];
 string nama2[100];
 int totalMobil[100];
 int hS2[100];
+int hP2[100];
 
 int pendapatan[100], p, ulang = 0;
 
@@ -194,20 +197,22 @@ void dataPembeli()
       }
    else if (n==2)
    	{ 	cout << "Total Harga + Diskon : Rp. " << hargaTotal << endl;
-      	cout << " No. Kartu Debit : ";cin>>o;
-
-         cout << " Total Transaksi : Rp. "<< hargaTotal << endl;
+      	cout << "No. Kartu Debit : ";cin>>o;
+         cout << "Masukkan No. Handphone :+62 "; cin>>hP;
+         cout << "Kode Validasi : "; cin>>kV;
+         cout << " Total Transaksi : Rp. "; cin>>m;
          cout << " Transaksi Anda Berhasil ";
       }
    else
    {
-     	cout << "Input metode pemayaran salah" << endl;
+     	cout << "Input metode pembayaran salah" << endl;
       goto bayar;
    }
 
    pendapatan[ulang-1] = hargaTotal;
    nama2[ulang-1] = nama;
    totalMobil[ulang-1] = sM;
+   hP2[ulang-1] = hP;
 
 
    getch();
@@ -258,12 +263,12 @@ void mulaiLagi()
    }
 
    cout << "-------------------------------------------------------------" << endl;
-	cout << "No.\t Nama Penyewa \t\t Total Mobil \t\t Total Harga" << endl;
+	cout << "No. Nama Penyewa \t No. Handphone \t Total Mobil \t Total Harga" << endl;
    cout << "-------------------------------------------------------------" << endl;
 
    for (int i = 0; i < ulang; i++)
    {
-   	cout << (i+1) <<" \t " << nama2[i] << "\t\t\t " << totalMobil[i] <<"\t\t\t Rp. " << pendapatan[i] << endl;
+   	cout << (i+1) <<". " << nama2[i] << "\t\t " << "+62 " <<hP2[i] << "\t " << totalMobil[i] <<"\t Rp. " << pendapatan[i] << endl;
    }
 
    cout << endl << endl;
