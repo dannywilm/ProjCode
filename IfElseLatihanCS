@@ -1,0 +1,76 @@
+#include <iostream>
+#include <conio>
+#include <math.h>
+#include <cstring>
+
+main()
+{
+	string k, keterangan;
+	float nT, nP, t, hasil;
+
+   cout << "Masukkan Jenis kelamin [L/P] : ";
+   cin >> k;
+
+   cout << "Masukkan Tinggi : ";
+   cin >> t;
+
+   cout << "Masukkan nilai tulis : ";
+   cin >> nT;
+
+   cout << "Masukkan nilai psikologi : ";
+   cin >> nP;
+
+   hasil = (nT + nP) / 2;
+
+   if (k == "L" || k == "l")
+   {
+   	if ( t >= 167)
+      {
+      	if (hasil >= 75)
+         {
+         	keterangan = "LULUS";
+         }
+         else
+         {
+         	keterangan = "Tidak Lulus";
+         }
+      }
+      else
+      {
+      	keterangan = "kurang tinggi";
+      }
+   }
+   else if(k == "P" || k == "p")
+   {
+   	if ( t >= 155)
+      {
+      	if (hasil >= 75)
+         {
+         	keterangan = "LULUS";
+         }
+         else
+         {
+         	keterangan = "Tidak Lulus";
+         }
+      }
+      else
+      {
+      	keterangan = "kurang tinggi";
+      }
+   }
+   else
+   {
+   	keterangan = "anda bukan manusia";
+   }
+
+   cout << endl;
+
+   cout << "Jenis kelamin : " << k << endl;
+   cout << "Tinggi badan : " << t << endl;
+   cout << "Nilai Tulis : " << nT << endl;
+   cout << "Nilai Psi : " << nP << endl;
+   cout << "Hasil : " << keterangan << endl;
+
+   getch();
+
+}
