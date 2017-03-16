@@ -1,0 +1,270 @@
+#include <conio>
+#include <iostream>
+#include <stdio>
+#include <stdlib>
+
+void tulisNode();
+void tambahNodeDepan();
+void tambahNodeTengah();
+void tambahNodeBelakang();
+void cariNode();
+void tampilCell();
+void hapusDepan();
+void hapusBelakang();
+
+struct node
+{
+	char name[20];
+   int age;
+   int urutan;
+   node *next;
+} *ptr = NULL, *head = NULL, *temp, *last;
+
+char input[20];
+int ageInput;
+
+// main program
+main()
+{
+	int pil;
+
+   menu:
+   clrscr();
+   cout << "Menu : " << endl;
+   cout << "1. Tulis node" << endl;
+   cout << "2. Tambah node depan" << endl;
+   cout << "3. Tambah node tengah" << endl;
+   cout << "4. Tambah node belakang" << endl;
+   cout << "5. Cari node" << endl;
+   cout << "6. Tampilkan node" << endl;
+   cout << "7. Hapus depan" << endl;
+   cout << "8. Hapus belakang" << endl << endl;
+	cout << "Pilih [1-4] : ";
+   cin >> pil;
+
+   switch (pil)
+   {
+		case 1:
+      	tulisNode();
+         break;
+      case 2:
+      	tambahNodeDepan();
+         break;
+      case 3:
+      	tambahNodeTengah();
+         break;
+      case 4:
+      	tambahNodeBelakang();
+         break;
+      case 5:
+      	cariNode();
+         break;
+      case 6:
+      	tampilCell();
+         break;
+      case 7:
+      	hapusDepan();
+         break;
+      case 8:
+      	hapusBelakang();
+         break;
+      default:
+      	cout << "Pilihan anda salah" << endl;
+   }
+
+   getch();
+   goto menu;
+}
+
+// ----------------------------- Function Logic ----------------------------//
+
+void tambahNodeDepan()
+{
+	if (head != NULL)
+   {
+   	cout << "Input name : ";
+      gets(input);
+      cout << "Input age : ";
+      cin >> ageInput;
+
+      temp = new node;
+      temp->next = NULL;
+
+      strcpy(temp->name, input);
+      temp->age = ageInput;
+
+      temp->next = head;
+      head = temp;
+   }
+   else
+   {
+   	cout << "head masih NULL" << endl;
+   }
+}
+
+void tambahNodeTengah()
+{
+  	if (head != NULL)
+   {
+   	cout << "Input data setelah : ";
+      gets(input);
+
+      ptr = head;
+
+      while (strcmp(ptr->name, input))
+      {
+      	ptr = ptr->next;
+         temp = ptr;
+      }
+
+      cout << "Input nama setelah node " << input << endl;
+      cout << "Input setelah memory " << temp << endl;
+      cout << "Name : ";
+      gets(input);
+      cout << "Age : ";
+      cin >> ageInput;
+
+      ptr = new node;
+      ptr->next = NULL;
+      strcpy(ptr->name, input);
+      ptr->age = ageInput;
+
+      ptr->next = temp->next;
+      temp->next = ptr;
+   }
+}
+
+void tambahNodeBelakang()
+{
+	if (head != NULL)
+   {
+   	cout << "Input name : ";
+      gets(input);
+      cout << "Input age : ";
+      cin >> ageInput;
+
+      temp = new node;
+      temp->next = NULL;
+      strcpy(temp->name, input);
+      temp->age = ageInput;
+
+      last->next = temp;
+      last = temp;
+   }
+   else
+   {
+   	cout << "head masih NULL" << endl;
+   }
+
+   cout << "Input Done" << endl;
+}
+
+void tulisNode()
+{
+
+   cout << "End this program with entering 0 (zero) at age!!" << endl;
+
+	do
+   {
+    	cout << "Input name : ";
+      gets(input);
+      cout << "Input age : ";
+      cin >> ageInput;
+      cout << endl;
+
+      if (strlen(input) > 0)
+      {
+			temp = (node *) malloc (sizeof (struct node));
+
+         strcpy(temp->name, input);
+         temp->age = ageInput;
+        	temp->next = NULL;
+
+         if (head == NULL)
+         {
+         	head = temp;
+         }
+         else
+         {
+				ptr->next = temp;
+         }
+         ptr = temp;
+         last = temp;
+      }
+
+      if (strlen(input) == NULL)
+      {
+      	cout << "Input done!!!" << endl;
+      }
+   } while (ageInput != NULL);
+
+}
+
+void cariNode()
+{
+ 	if (head != NULL)
+   {
+   	//int i = 0;
+
+   	cout << "Input nama yang dicari : ";
+      gets(input);
+
+      ptr = head;
+
+      while (strcmp(ptr->name,input))
+      {
+      	ptr = ptr->next;
+      }
+
+      cout << "Nama : " << input << endl;
+      cout << "Ada di memory : " << ptr << endl;
+   }
+}
+
+void tampilCell()
+{
+	if (head != NULL)
+   {
+   	ptr = head;
+
+      do
+      {
+         cout << "Cell : " << ptr << endl;
+         cout << "Nama : " << ptr->name << endl;
+         cout << "Umur : " << ptr->age << endl;
+         cout << "Next Cell : " << ptr->next << endl;
+         cout << endl;
+
+         ptr = ptr->next;
+
+      } while (ptr != NULL);
+   }
+   else
+   {
+   	cout << "Head masih NULL" << endl;
+   }
+}
+
+void hapusDepan()
+{
+  	ptr = head;
+   head = ptr->next;
+   free(ptr);
+
+   cout << "Node sudah terhapus" << endl;
+}
+
+void hapusBelakang()
+{
+ 	ptr = head;
+
+   while (ptr->next != last)
+   {
+   	ptr = ptr->next;
+   }
+
+   free(last);
+   last = ptr;
+   last->next = NULL;
+
+}
