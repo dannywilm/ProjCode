@@ -124,6 +124,7 @@ void tambahNodeTengah()
       cout << "Age : ";
       cin >> ageInput;
 
+      // ----- proses --------//
       ptr = new node;
       ptr->next = NULL;
       strcpy(ptr->name, input);
