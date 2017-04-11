@@ -1,0 +1,201 @@
+#include <iostream>
+#include <conio>
+#include <stdlib>
+#include <stdio>
+
+void tulisNode();
+void sisipNode();
+void sisipSebelumNode();
+void tampilNode();
+void hapusNode();
+
+struct node
+{
+	int angka;
+   node *prev, *next;
+} *head = NULL, *ptr, *last = NULL, *temp, *temp2;
+
+int input;
+int data;
+
+main()
+{
+	int pil;
+
+   menu:
+   clrscr();
+   cout << "Program DOUBLE LINKED LIST" << endl << endl;
+	cout << "1. Tulis Node" << endl;
+   cout << "2. Sisip Node" << endl;
+   cout << "3. Tampilkan Node" << endl;
+   cout << "4. Sisip setelah Node" << endl;
+   cout << "5. Hapus node" << endl;
+   cout << "\nPilihan : ";
+   cin >> pil;
+
+   switch(pil)
+   {
+   	case 1:
+			tulisNode();
+         break;
+      case 2:
+      	sisipNode();
+         break;
+      case 3:
+      	tampilNode();
+         break;
+      case 4:
+      	sisipSebelumNode();
+         break;
+      case 5:
+      	hapusNode();
+         break;
+      default:
+      	cout << "Pilihan anda salah" << endl;
+   }
+
+   getch();
+
+   goto menu;
+}
+
+void tulisNode()
+{
+	cout << "Akhiri program dengan input 0 (NOL)" << endl;
+
+   do
+   {
+   	cout << "Input data angka : ";
+      cin >> input;
+
+		if (input > 0)
+      {
+      	temp = new node;
+         temp->angka = input;
+         temp->next = NULL;
+         temp->prev = NULL;
+
+         if (head == NULL)
+         {
+         	head = temp;
+            last = temp;
+         }
+         else
+         {
+				ptr->next = temp;
+            temp->prev = ptr;
+         }
+         ptr = temp;
+      }
+      else
+      {
+      	cout << "INPUT DONE!!" << endl;
+      }
+   } while (input > 0);
+}
+
+void tampilNode()
+{
+	if (head != NULL)
+   {
+   	ptr = head;
+
+      cout << "Prev Node \t Field \t Current Node \t Next Node" << endl;
+
+      while (ptr != NULL)
+      {
+			cout << ptr->prev << "\t" << ptr->angka << "\t" << ptr << "\t" << ptr->next << endl;
+
+         ptr = ptr->next;
+      }
+   }
+   else
+   {
+   	cout << "head berisi NULL" << endl;
+   }
+}
+
+void sisipNode()
+{
+	cout << "Ingin menyisip setelah data apa : ";
+   cin >> data;
+
+   ptr = head;
+
+   while (data != ptr->angka)
+   {
+   	ptr = ptr->next;
+   }
+
+   cout << "DATA DITEMUKAN" << endl << endl;
+
+   cout << "Sisipkan data : ";
+   cin >> input;
+
+   temp = new node;
+   temp->angka = input;
+   temp->next = NULL;
+   temp->prev = NULL;
+
+   temp->next = ptr->next;
+   temp->prev = ptr;
+   ptr->next = temp;
+
+   cout << "SISIP SELESAI :)" << endl;
+}
+
+void sisipSebelumNode()
+{
+	cout << "Ingin menyisip sebelum data apa : ";
+   cin >> data;
+
+   ptr = head;
+
+
+	while (data != ptr->angka)
+   {
+   	ptr = ptr->next;
+   }
+
+   cout << "DATA DITEMUKAN" << endl << endl;
+
+   cout << "Sisipkan data : ";
+   cin >> input;
+
+   temp = new node;
+   temp->angka = input;
+   temp->next = NULL;
+   temp->prev = NULL;
+
+   temp2 = ptr->prev;
+   temp2->next = temp;
+   temp->prev = temp2;
+	temp->next = ptr;
+   ptr->prev = temp;
+
+
+
+   cout << "SISIP SELESAI :)" << endl;
+}
+
+void hapusNode()
+{
+	cout << "Input data yang ingin dihapus : ";
+   cin >> data;
+
+   ptr = head;
+
+   while (data != ptr->angka)
+   {
+   	ptr = ptr->next;
+   }
+
+	temp2 = ptr->prev;
+   temp2->next = ptr->next;
+   temp = ptr->next;
+   temp->prev = ptr->prev;
+
+   free(ptr);
+
+   cout << "data telah terhapus" << endl;
+}
