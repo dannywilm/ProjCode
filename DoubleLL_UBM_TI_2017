@@ -8,6 +8,10 @@ void sisipNode();
 void sisipSebelumNode();
 void tampilNode();
 void hapusNode();
+void hapusDepan();
+void hapusLast();
+void sisipHead();
+void sisipLast();
 
 struct node
 {
@@ -24,12 +28,17 @@ main()
 
    menu:
    clrscr();
+   tampilNode();
+   cout << endl;
    cout << "Program DOUBLE LINKED LIST" << endl << endl;
 	cout << "1. Tulis Node" << endl;
-   cout << "2. Sisip Node" << endl;
-   cout << "3. Tampilkan Node" << endl;
-   cout << "4. Sisip setelah Node" << endl;
-   cout << "5. Hapus node" << endl;
+   cout << "2. Sisip setelah Node" << endl;
+   cout << "3. Sisip sebelum Node" << endl;
+   cout << "4. Hapus node" << endl;
+   cout << "5. Hapus head" << endl;
+   cout << "6. Hapus last" << endl;
+   cout << "7. Sisip head" << endl;
+   cout << "8. Sisip last" << endl;
    cout << "\nPilihan : ";
    cin >> pil;
 
@@ -42,13 +51,22 @@ main()
       	sisipNode();
          break;
       case 3:
-      	tampilNode();
-         break;
-      case 4:
       	sisipSebelumNode();
          break;
-      case 5:
+      case 4:
       	hapusNode();
+         break;
+      case 5:
+      	hapusDepan();
+         break;
+      case 6:
+      	hapusLast();
+         break;
+      case 7:
+      	sisipHead();
+         break;
+      case 8:
+      	sisipLast();
          break;
       default:
       	cout << "Pilihan anda salah" << endl;
@@ -86,6 +104,7 @@ void tulisNode()
             temp->prev = ptr;
          }
          ptr = temp;
+         last = temp;
       }
       else
       {
@@ -137,9 +156,11 @@ void sisipNode()
    temp->next = NULL;
    temp->prev = NULL;
 
-   temp->next = ptr->next;
-   temp->prev = ptr;
+	temp2 = ptr->next;
+   temp->next = temp2;
+   temp2->prev = temp;
    ptr->next = temp;
+   temp->prev = ptr;
 
    cout << "SISIP SELESAI :)" << endl;
 }
@@ -198,4 +219,85 @@ void hapusNode()
    free(ptr);
 
    cout << "data telah terhapus" << endl;
+}
+
+void hapusDepan()
+{
+	ptr = head;
+	if (head != NULL)
+   {
+		head = ptr->next;
+      head->prev = NULL;
+      free(ptr);
+      cout << "Node HEAD terhapus" << endl;
+   }
+   else
+   {
+   	cout << "head masih NULL" << endl;
+   }
+}
+
+void hapusLast()
+{
+	if (head != NULL)
+   {
+   	temp = last;
+      last = temp->prev;
+      last->next = NULL;
+      free(temp);
+
+      cout << "Node LAST terhapus" << endl;
+   }
+   else
+   {
+   	cout << "Head masih NULL" << endl;
+   }
+}
+
+void sisipHead()
+{
+	if (head != NULL)
+   {
+   	cout << "Input data : ";
+      cin >> data;
+
+      temp = new node;
+      temp->next = NULL;
+      temp->prev = NULL;
+      temp->angka = data;
+
+      temp->next = head;
+      head->prev = temp;
+      head = temp;
+
+      cout << "Node telah ditambahkan di head" << endl;
+   }
+   else
+   {
+   	cout << "Head masih NULL" << endl;
+   }
+}
+
+void sisipLast()
+{
+  	if (head != NULL)
+   {
+   	cout << "Input data : ";
+      cin >> data;
+
+      temp = new node;
+      temp->next = NULL;
+      temp->prev = NULL;
+      temp->angka = data;
+
+      last->next = temp;
+      temp->prev = last;
+      last = temp;
+
+      cout << "Node telah ditambahkan di last" << endl;
+   }
+   else
+   {
+   	cout << "Head masih NULL" << endl;
+   }
 }
