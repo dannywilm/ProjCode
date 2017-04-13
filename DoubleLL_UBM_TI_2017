@@ -77,6 +77,7 @@ main()
    goto menu;
 }
 
+// fungsi dibawah untuk membuat node baru
 void tulisNode()
 {
 	cout << "Akhiri program dengan input 0 (NOL)" << endl;
@@ -113,6 +114,7 @@ void tulisNode()
    } while (input > 0);
 }
 
+// fungsi ini digunakan untuk menampilkan node
 void tampilNode()
 {
 	if (head != NULL)
@@ -134,6 +136,7 @@ void tampilNode()
    }
 }
 
+// fungsi ini digunakan untuk meyisipkan data setelah data yang diinput user
 void sisipNode()
 {
 	cout << "Ingin menyisip setelah data apa : ";
@@ -165,6 +168,7 @@ void sisipNode()
    cout << "SISIP SELESAI :)" << endl;
 }
 
+// fungsi ini digunakan untuk meyisipkan data sebelum data yang diinput user
 void sisipSebelumNode()
 {
 	cout << "Ingin menyisip sebelum data apa : ";
@@ -199,6 +203,7 @@ void sisipSebelumNode()
    cout << "SISIP SELESAI :)" << endl;
 }
 
+// fungsi dibawah untuk menghapus node yang ingin dihapus oleh user
 void hapusNode()
 {
 	cout << "Input data yang ingin dihapus : ";
@@ -221,11 +226,12 @@ void hapusNode()
    cout << "data telah terhapus" << endl;
 }
 
+// fungsi dibawah untuk menghapus NODE depan
 void hapusDepan()
 {
-	ptr = head;
 	if (head != NULL)
    {
+   	ptr = head;
 		head = ptr->next;
       head->prev = NULL;
       free(ptr);
@@ -237,6 +243,7 @@ void hapusDepan()
    }
 }
 
+// fungsi dibawah untuk menghapus data last;
 void hapusLast()
 {
 	if (head != NULL)
@@ -254,6 +261,7 @@ void hapusLast()
    }
 }
 
+// fungsi ini digunakan untuk menyisip node baru pada head
 void sisipHead()
 {
 	if (head != NULL)
@@ -278,6 +286,7 @@ void sisipHead()
    }
 }
 
+// fungsi dibawah untuk menyisip node paling akhir
 void sisipLast()
 {
   	if (head != NULL)
