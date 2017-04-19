@@ -1,0 +1,83 @@
+// stack using array
+#include <iostream>
+#include <conio>
+
+void push(int x);
+void pop();
+void display();
+
+int data[500], top = -1;
+
+main()
+{
+	int pil, x = 1, input;
+
+   cout << "Stack program using array" << endl;
+
+	while (x == 1)
+   {
+   	clrscr();
+   	cout << "1. Push" << endl;
+      cout << "2. Pop" << endl;
+      cout << "3. Display" << endl;
+      cout << "4. Exit" << endl;
+      cout << "->[1-4] ";
+      cin >> pil;
+
+      switch(pil)
+      {
+      	case 1:
+         	cout << "Insert number : ";
+            cin >> input;
+            push(input);
+            break;
+         case 2:
+         	pop();
+            break;
+         case 3:
+         	display();
+            break;
+         case 4:
+         	x = 0;
+            cout << "Thank Youuu :)" << endl;
+      }
+      getch();
+   }
+}
+
+void push(int x)
+{
+	if (top > 500)
+	{
+ 		cout << "Stack is already FULL ><" << endl;
+		return;
+	}
+	else
+	{
+		data[++top] = x;
+		cout << "inserted" << endl;
+	}
+}
+
+void pop()
+{
+	if (top < 0)
+   {
+    	cout << "Stack is empty" << endl;
+      return;
+   }
+   cout << "Elemen yang dihapus adalah -> " << data[top--] << endl;
+}
+
+void display()
+{
+	if (top < 0)
+	{
+		cout << "Stack is empty" << endl;
+	}
+
+	for (int i = top; i >= 0; i--)
+	{
+		cout << data[i] << endl;
+	}
+}
