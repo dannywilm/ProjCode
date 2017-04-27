@@ -1,0 +1,131 @@
+#include <iostream>
+#include <conio>
+#include <stdlib>
+
+void createStack();
+void inOrderTrav(struct treeDat *travCell);
+treeDat *searchBinaryTree(int key, treeDat *leaf);
+
+struct treeDat
+{
+	int dat;
+   treeDat *kiri, *kanan;
+} *ptrCell = NULL, *rootCell = NULL, *baru = NULL;
+
+// inisialisasi
+int i, bilRandom, temp, kondisi, index = -1;
+
+main()
+{
+	int cari;
+
+	createStack();
+
+   cout << endl << "Pre-Order Travesal" << endl;
+   inOrderTrav(rootCell);
+
+   cout << endl << endl << "Cari data : ";
+   cin >> cari;
+
+   searchBinaryTree(cari, rootCell);
+
+   if (index > 0)
+   {
+   	cout << "data ditemukan di " << rootCell << endl;
+   }
+
+   getch();
+}
+
+void createStack()
+{
+	for (i=1; i <= 10; i++)
+   {
+   	// tentukan bilangan random
+   	bilRandom = rand();
+
+		// buat sebuah cell
+      baru = new treeDat;
+      baru->dat = bilRandom;
+      baru->kiri = NULL;
+      baru->kanan = NULL;
+
+      // penempatan cell pada tree
+      if (rootCell == NULL)	// jika belum ada cell pada tree, tempatkan sebagai root
+      {
+			rootCell = baru;
+         cout << baru->dat << " : ditempatkan sebagai ROOT" << endl;
+      }
+      else
+      {
+      	ptrCell = rootCell;
+         while (ptrCell != baru)
+         {
+         	if (ptrCell->dat > baru->dat)
+            {
+             	// ke kiri
+               if (ptrCell->kiri == NULL)
+               {
+               	ptrCell->kiri = baru;
+                  cout << baru->dat << " : ditempatkan sebagai LEFT " << ptrCell->dat << endl;
+               }
+             	ptrCell = ptrCell->kiri;
+            }
+            else
+            {
+            	// ke kanan
+               if (ptrCell->kanan == NULL)
+               {
+               	ptrCell->kanan = baru;
+                  cout << baru->dat << " : ditempatkan sebagai RIGHT " << ptrCell->dat << endl;
+               }
+               ptrCell = ptrCell->kanan;
+            }
+
+         }
+		}
+   }
+}
+
+void inOrderTrav(struct treeDat *travCell)
+{
+   // L
+   if (travCell->kiri != NULL)
+   {
+      inOrderTrav(travCell->kiri);
+   }
+
+   // V
+	cout << travCell->dat << " | ";
+
+   // R
+   if (travCell->kanan != NULL)
+   {
+      inOrderTrav(travCell->kanan);
+   }
+}
+
+treeDat *searchBinaryTree(int key, treeDat *leaf)
+{
+	if (leaf != NULL)
+   {
+   	if (key == leaf->dat)
+      {
+      	cout << "data ditemukan di : " << leaf << endl;
+      	return leaf;
+      }
+      if (key < leaf->dat)
+      {
+      	return searchBinaryTree(key, leaf->kiri);
+      }
+      else
+      {
+      	return searchBinaryTree(key, leaf->kanan);
+      }
+   }
+   else
+   {
+      cout << "data tidak ditemukan" << endl;
+   	return NULL;
+   }
+}
