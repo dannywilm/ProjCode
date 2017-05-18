@@ -1,0 +1,460 @@
+// 32160011 (Danny Wilimsius)
+// 32160012 (Billy Lorenzo Kaunang)
+#include <iostream>
+#include <conio>
+#include <cstring>
+
+void bubbleSort();
+void bubbleSortNIM();
+void bubbleSortNama();
+void selectionSort();
+void selectionSortNIM();
+void selectionSortNama();
+void searching();
+
+string nama[100];
+int data[100];
+char pilih;
+int n, pil;
+
+main()
+{
+	int o = 1;
+
+	while (o == 1)
+   {
+   	clrscr();
+   	cout << "Tugas TI 04/05/2017" << endl << endl;
+   	cout << "1. Bubble Sort" << endl;
+   	cout << "2. Selection Sort" << endl;
+      cout << "pilihan : ";
+      cin >> pil;
+
+      switch(pil)
+      {
+      	case 1:
+         	bubbleSort();
+         	break;
+         case 2:
+         	selectionSort();
+         	break;
+         default:
+         	cout << "Pilihan anda salah" << endl;
+      }
+   }
+
+   getch();
+}
+
+void bubbleSort()
+{
+
+	clrscr();
+   cout << "Pilih :" << endl;
+   cout << "1. NIM" << endl;
+   cout << "2. Nama" << endl;
+   cout << "pilih[1/2] : ";
+   cin >> pil;
+
+   switch(pil)
+   {
+   	case 1:
+      	bubbleSortNIM();
+         break;
+      case 2:
+      	bubbleSortNama();
+         break;
+      default:
+      	cout << "Salah input" << endl;
+   }
+
+}
+
+void selectionSort()
+{
+ 	clrscr();
+   cout << "Pilih :" << endl;
+   cout << "1. NIM" << endl;
+   cout << "2. Nama" << endl;
+   cout << "pilih[1/2] : ";
+   cin >> pil;
+
+   switch(pil)
+   {
+   	case 1:
+      	selectionSortNIM();
+         break;
+      case 2:
+      	selectionSortNama();
+         break;
+      default:
+      	cout << "Salah input" << endl;
+   }
+}
+
+void searching()
+{
+ 	string cari;
+   int k = 0;
+
+   cout << "Masukkan nama yang ingin anda cari : ";
+   cin >> cari;
+
+   for (int i = 0; i < n; i++)
+   {
+   	if (cari == nama[i])
+      {
+      	k++;
+      }
+   }
+
+   if (k > 0)
+   {
+   	cout << "Data yang anda cari ditemukan :)" << endl;
+   }
+   else if (k == 0)
+   {
+   	cout << "Data yang anda cari tidak ditemukan" << endl;
+   }
+
+   getch();
+}
+
+void bubbleSortNama()
+{
+ 	int i, j;
+   string temp;
+
+ 	cout << endl << "Masukkan jumlah nama yang ingin dimasukkan : ";
+   cin >> n;
+
+   for (int i = 0; i < n; i++)
+   {
+		cout << "masukkan nama ke " << (i+1) << " : ";
+      cin >> nama[i];
+   }
+
+	cout << "Nama yang anda masukkan" << endl;
+
+   for (int i = 0; i < n; i++)
+   {
+   	cout << nama[i] << " | ";
+   }
+
+   cout << endl;
+
+   for (i = 1; i < n; i++)
+   {
+   	for (j = 0; j <(n-1); j++)
+      {
+      	if (nama[i] < nama[j])
+         {
+         	temp = nama[j];
+            nama[j] = nama[i];
+            nama[i] = temp;
+         }
+
+         for (int i = 0; i < n; i++)
+    	  {
+      	   cout << nama[i] << " | ";
+      	}
+      	cout << endl;
+      	getch();
+
+      }
+   }
+
+   cout << endl;
+
+   for (int i = 0; i < n; i++)
+   {
+   	cout << nama[i] << " | ";
+   }
+
+   cout << endl;
+
+   cout << "Apakah anda ingin mencari nama yang baru anda input kan ?? [y/n]" << endl;
+   cin >> pilih;
+
+   if(pilih == 'Y' || pilih == 'y')
+   {
+   	searching();
+   }
+   else
+   {
+   	cout << "Sorting SELESAI !!" << endl;
+   }
+
+   getch();
+}
+
+void selectionSortNama()
+{
+ 	string temp;
+
+   cout << endl << "Masukkan jumlah nama yang ingin dimasukkan : ";
+   cin >> n;
+
+   for (int i = 0; i < n; i++)
+   {
+		cout << "masukkan nama ke " << (i+1) << " : ";
+      cin >> nama[i];
+   }
+
+	cout << "Nama yang anda masukkan" << endl;
+
+   for (int i = 0; i < n; i++)
+   {
+   	cout << nama[i] << " | ";
+   }
+
+   // proses selection
+
+   for (int i = 0; i < n; i++)
+   {
+   	int index = i;
+
+      for (int j = i+1; j < n; j++)
+      {
+      	if (nama[j] < nama[index])
+         {
+         	index = j;
+         }
+      }
+
+      if (index != i)
+      {
+      	temp = nama[i];
+         nama[i] = nama[index];
+         nama[index] = temp;
+      }
+
+      cout << endl;
+
+      for (int i = 0; i < n; i++)
+      {
+      	cout << nama[i] << " | ";
+      }
+
+      getch();
+   }
+
+   cout << endl;
+
+   cout << "Apakah anda ingin mencari nama yang baru anda input kan ?? [y/n]" << endl;
+   cin >> pilih;
+
+   if(pilih == 'Y' || pilih == 'y')
+   {
+   	searching();
+   }
+   else
+   {
+   	cout << "Sorting SELESAI !!" << endl;
+   }
+}
+
+void bubbleSortNIM()
+{
+ 	int i,j,k,temp,kiri,kanan,tengah,key,u;
+   bool ketemu=false;
+
+   cout<<"Masukkan jumlah data yang diinginkan : ";cin>>k;
+
+   for(i=0;i<k;i++)
+   {
+   	cout<<"Masukkan NIM ke-"<<(i+1)<<" : ";cin>>data[i];
+   }
+
+   for(i=0;i<k;i++)
+   {
+     	for(j=i+1;j<k;j++)
+     	{
+     		if(data[i]>data[j])
+         {
+         	temp=data[i];
+            data[i]=data[j];
+            data[j]=temp;
+         }
+
+         for (int l = 0; l < k; l++)
+      	{
+     	 		cout << data[l] << " | ";
+     	 	}
+     	 	cout << endl;
+    	  	getch();
+     	}
+   }
+
+   cout<<"Data setelah diurutkan = "<<endl;
+   for(i=0;i<k;i++)
+   {
+   	cout<<data[i]<<" ";
+   }
+   cout<<endl<<endl;
+
+   
+
+   cout<<"Apakah mau melakukan searching data?(1=Ya, 0=Tidak) = ";cin>>u;
+   if(u == 1)
+   {
+   	for(i=0;i<k;i++)
+   	{
+     		for(j=i+1;j<k;j++)
+         {
+     			if(data[i]>data[j])
+         	{
+         		temp=data[i];
+            	data[i]=data[j];
+            	data[j]=temp;
+         	}
+     		}
+   	}
+
+      cout<<"Data setelah diurutkan = "<<endl;
+      for(i=0;i<k;i++)
+      {
+      	cout<<data[i]<<" ";
+      }
+      cout<<endl<<endl;
+
+      cout<<"Masukkan NIM yang ingin anda cari : ";cin>>key;
+
+      kiri=0;kanan=k-1;
+      while(kiri<=kanan)
+      {
+      	tengah=(kiri+kanan)/2;
+         if(key==data[tengah])
+         {
+         	ketemu=true;
+            break;
+         }
+         else if(key<data[tengah])
+         {
+         	kanan=tengah-1;
+         }
+         else
+         {
+         	kiri=tengah+1;
+         }
+      }
+      if(ketemu==true)
+      {
+      	cout<<"NIM ditemukan";
+      }
+      else
+      {
+      	cout<<"NIM tidak ditemukan";
+      }
+   }
+   else
+   {
+   	cout << "Thank you" << endl;
+   }
+
+   getch();
+}
+
+void selectionSortNIM()
+{
+ 	int i,j,k,c,d,temp,u,kiri,kanan,tengah,key;
+   bool ketemu=false;
+
+   cout<<"Masukkan jumlah data yang diinginkan : ";cin>>k;
+
+   for(i=0;i<k;i++)
+   {
+   	cout<<"Masukkan NIM ke-"<<(i+1)<<" : ";cin>>data[i];
+   }
+
+   for(i=0;i<k-1;i++)
+   {
+    	c=i;
+      for(d=i+1;d<k;d++)
+      {
+      	if(data[c]>data[d])
+         {
+         	c=d;
+         }
+      }
+      temp=data[c];
+      data[c]=data[i];
+      data[i]=temp;
+
+      
+      for (int l = 0; l < k; l++)
+      {
+      	cout << data[l] << " | ";
+      }
+
+      cout << endl;
+      getch();
+   }
+
+   cout<<"Data setelah diurutkan : ";
+   for(i=0;i<k;i++)
+   {
+   	cout<<data[i]<<" ";
+   }
+   cout<<endl<<endl;
+
+   cout<<"Apakah mau melakukan searching data?(1=Ya, 0=Tidak) = ";cin>>u;
+   if(u == 1)
+   {
+   	for(i=0;i<k;i++)
+   	{
+     		for(j=i+1;j<k;j++)
+         {
+     			if(data[i]>data[j])
+         	{
+         		temp=data[i];
+            	data[i]=data[j];
+            	data[j]=temp;
+         	}
+     		}
+   	}
+
+      cout<<"Data setelah diurutkan = "<<endl;
+      for(i=0;i<k;i++)
+      {
+      	cout<<data[i]<<" ";
+      }
+      cout<<endl<<endl;
+
+      cout<<"Masukkan NIM yang ingin anda cari : ";cin>>key;
+
+      kiri=0;kanan=k-1;
+      while(kiri<=kanan)
+      {
+      	tengah=(kiri+kanan)/2;
+         if(key==data[tengah])
+         {
+         	ketemu=true;
+            break;
+         }
+         else if(key<data[tengah])
+         {
+         	kanan=tengah-1;
+         }
+         else
+         {
+         	kiri=tengah+1;
+         }
+      }
+      if(ketemu==true)
+      {
+      	cout<<"NIM ditemukan";
+      }
+      else
+      {
+      	cout<<"NIM tidak ditemukan";
+      }
+   }
+   else
+   {
+   	cout << "Thank you" << endl;
+   }
+
+   getch();
+}
+
