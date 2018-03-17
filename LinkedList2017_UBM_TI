@@ -11,6 +11,7 @@ void cariNode();
 void tampilCell();
 void hapusDepan();
 void hapusBelakang();
+void hapusTengah();
 
 struct node
 {
@@ -38,6 +39,7 @@ main()
    cout << "5. Cari node" << endl;
    cout << "6. Tampilkan node" << endl;
    cout << "7. Hapus depan" << endl;
+   cout << "9. Hapus tengah" << endl;
    cout << "8. Hapus belakang" << endl << endl;
 	cout << "Pilih [1-4] : ";
    cin >> pil;
@@ -67,6 +69,9 @@ main()
          break;
       case 8:
       	hapusBelakang();
+         break;
+      case 9:
+      	hapusTengah();
          break;
       default:
       	cout << "Pilihan anda salah" << endl;
@@ -268,4 +273,27 @@ void hapusBelakang()
    last = ptr;
    last->next = NULL;
 
+}
+
+void hapusTengah()
+{
+	if (head != NULL)
+   {
+   	cout << "Hapus data setelah : ";
+      gets(input);
+
+      ptr = head;
+
+      while (strcmp(ptr->name, input))
+      {
+      	ptr = ptr->next;
+         temp = ptr;
+      }
+      cout << "Setelah memory " << temp << endl;
+   }
+
+   // proses
+   ptr = temp->next;
+   temp->next = temp->next->next;
+   free(ptr);
 }
