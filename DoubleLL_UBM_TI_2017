@@ -1,249 +1,259 @@
-#include <conio>
 #include <iostream>
-#include <stdio>
+#include <conio>
 #include <stdlib>
+#include <stdio>
 
 void tulisNode();
-void tambahNodeDepan();
-void tambahNodeTengah();
-void tambahNodeBelakang();
-void cariNode();
-void tampilCell();
+void sisipNode();
+void sisipSebelumNode();
+void tampilNode();
+void hapusNode();
 void hapusDepan();
-void hapusBelakang();
-void hapusTengah();
+void hapusLast();
+void sisipHead();
+void sisipLast();
 
 struct node
 {
-	char name[20];
-   int age;
-   int urutan;
-   node *next;
-} *ptr = NULL, *head = NULL, *temp, *last;
+	int angka;
+   node *prev, *next;
+} *head = NULL, *ptr, *last = NULL, *temp, *temp2;
 
-char input[20];
-int ageInput;
+int input;
+int data;
 
-// main program
 main()
 {
 	int pil;
 
    menu:
    clrscr();
-   cout << "Menu : " << endl;
-   cout << "1. Tulis node" << endl;
-   cout << "2. Tambah node depan" << endl;
-   cout << "3. Tambah node tengah" << endl;
-   cout << "4. Tambah node belakang" << endl;
-   cout << "5. Cari node" << endl;
-   cout << "6. Tampilkan node" << endl;
-   cout << "7. Hapus depan" << endl;
-   cout << "9. Hapus tengah" << endl;
-   cout << "8. Hapus belakang" << endl << endl;
-	cout << "Pilih [1-4] : ";
+   tampilNode();
+   cout << endl;
+   cout << "Program DOUBLE LINKED LIST" << endl << endl;
+	cout << "1. Tulis Node" << endl;
+   cout << "2. Sisip setelah Node" << endl;
+   cout << "3. Sisip sebelum Node" << endl;
+   cout << "4. Hapus node" << endl;
+   cout << "5. Hapus head" << endl;
+   cout << "6. Hapus last" << endl;
+   cout << "7. Sisip head" << endl;
+   cout << "8. Sisip last" << endl;
+   cout << "\nPilihan : ";
    cin >> pil;
 
-   switch (pil)
+   switch(pil)
    {
-		case 1:
-      	tulisNode();
+   	case 1:
+			tulisNode();
          break;
       case 2:
-      	tambahNodeDepan();
+      	sisipNode();
          break;
       case 3:
-      	tambahNodeTengah();
+      	sisipSebelumNode();
          break;
       case 4:
-      	tambahNodeBelakang();
+      	hapusNode();
          break;
       case 5:
-      	cariNode();
-         break;
-      case 6:
-      	tampilCell();
-         break;
-      case 7:
       	hapusDepan();
          break;
-      case 8:
-      	hapusBelakang();
+      case 6:
+      	hapusLast();
          break;
-      case 9:
-      	hapusTengah();
+      case 7:
+      	sisipHead();
+         break;
+      case 8:
+      	sisipLast();
          break;
       default:
       	cout << "Pilihan anda salah" << endl;
    }
 
    getch();
+
    goto menu;
 }
 
-// ----------------------------- Function Logic ----------------------------//
-
-void tambahNodeDepan()
-{
-	if (head != NULL)
-   {
-   	cout << "Input name : ";
-      gets(input);
-      cout << "Input age : ";
-      cin >> ageInput;
-
-      temp = new node;
-      temp->next = NULL;
-
-      strcpy(temp->name, input);
-      temp->age = ageInput;
-
-      temp->next = head;
-      head = temp;
-   }
-   else
-   {
-   	cout << "head masih NULL" << endl;
-   }
-}
-
-void tambahNodeTengah()
-{
-  	if (head != NULL)
-   {
-   	cout << "Input data setelah : ";
-      gets(input);
-
-      ptr = head;
-
-      while (strcmp(ptr->name, input))
-      {
-      	ptr = ptr->next;
-         temp = ptr;
-      }
-
-      cout << "Input nama setelah node " << input << endl;
-      cout << "Input setelah memory " << temp << endl;
-      cout << "Name : ";
-      gets(input);
-      cout << "Age : ";
-      cin >> ageInput;
-
-      // ----- proses --------//
-      ptr = new node;
-      ptr->next = NULL;
-      strcpy(ptr->name, input);
-      ptr->age = ageInput;
-
-      ptr->next = temp->next;
-      temp->next = ptr;
-   }
-}
-
-void tambahNodeBelakang()
-{
-	if (head != NULL)
-   {
-   	cout << "Input name : ";
-      gets(input);
-      cout << "Input age : ";
-      cin >> ageInput;
-
-      temp = new node;
-      temp->next = NULL;
-      strcpy(temp->name, input);
-      temp->age = ageInput;
-
-      last->next = temp;
-      last = temp;
-   }
-   else
-   {
-   	cout << "head masih NULL" << endl;
-   }
-
-   cout << "Input Done" << endl;
-}
-
+// fungsi dibawah untuk membuat node baru
 void tulisNode()
 {
+	cout << "Akhiri program dengan input 0 (NOL)" << endl;
 
-   cout << "End this program with entering 0 (zero) at age!!" << endl;
-
-	do
+   do
    {
-    	cout << "Input name : ";
-      gets(input);
-      cout << "Input age : ";
-      cin >> ageInput;
-      cout << endl;
+   	cout << "Input data angka : ";
+      cin >> input;
 
-      if (strlen(input) > 0)
+		if (input > 0)
       {
-			temp = (node *) malloc (sizeof (struct node));
-
-         strcpy(temp->name, input);
-         temp->age = ageInput;
-        	temp->next = NULL;
+      	temp = new node;
+         temp->angka = input;
+         temp->next = NULL;
+         temp->prev = NULL;
 
          if (head == NULL)
          {
          	head = temp;
+            last = temp;
          }
          else
          {
 				ptr->next = temp;
+            temp->prev = ptr;
          }
          ptr = temp;
          last = temp;
       }
-
-      if (strlen(input) == NULL)
+      else
       {
-      	cout << "Input done!!!" << endl;
+      	cout << "INPUT DONE!!" << endl;
       }
-   } while (ageInput != NULL);
-
+   } while (input > 0);
 }
 
-void cariNode()
-{
- 	if (head != NULL)
-   {
-   	//int i = 0;
-
-   	cout << "Input nama yang dicari : ";
-      gets(input);
-
-      ptr = head;
-
-      while (strcmp(ptr->name,input))
-      {
-      	ptr = ptr->next;
-      }
-
-      cout << "Nama : " << input << endl;
-      cout << "Ada di memory : " << ptr << endl;
-   }
-}
-
-void tampilCell()
+// fungsi ini digunakan untuk menampilkan node
+void tampilNode()
 {
 	if (head != NULL)
    {
    	ptr = head;
 
-      do
+      cout << "Prev Node \t Field \t Current Node \t Next Node" << endl;
+
+      while (ptr != NULL)
       {
-         cout << "Cell : " << ptr << endl;
-         cout << "Nama : " << ptr->name << endl;
-         cout << "Umur : " << ptr->age << endl;
-         cout << "Next Cell : " << ptr->next << endl;
-         cout << endl;
+			cout << ptr->prev << "\t" << ptr->angka << "\t" << ptr << "\t" << ptr->next << endl;
 
          ptr = ptr->next;
+      }
+   }
+   else
+   {
+   	cout << "head berisi NULL" << endl;
+   }
+}
 
-      } while (ptr != NULL);
+// fungsi ini digunakan untuk meyisipkan data setelah data yang diinput user
+void sisipNode()
+{
+	cout << "Ingin menyisip setelah data apa : ";
+   cin >> data;
+
+   ptr = head;
+
+   while (data != ptr->angka)
+   {
+   	ptr = ptr->next;
+   }
+
+   cout << "DATA DITEMUKAN" << endl << endl;
+
+   cout << "Sisipkan data : ";
+   cin >> input;
+
+   temp = new node;
+   temp->angka = input;
+   temp->next = NULL;
+   temp->prev = NULL;
+
+	temp2 = ptr->next;
+   temp->next = temp2;
+   temp2->prev = temp;
+   ptr->next = temp;
+   temp->prev = ptr;
+
+   cout << "SISIP SELESAI :)" << endl;
+}
+
+// fungsi ini digunakan untuk meyisipkan data sebelum data yang diinput user
+void sisipSebelumNode()
+{
+	cout << "Ingin menyisip sebelum data apa : ";
+   cin >> data;
+
+   ptr = head;
+
+
+	while (data != ptr->angka)
+   {
+   	ptr = ptr->next;
+   }
+
+   cout << "DATA DITEMUKAN" << endl << endl;
+
+   cout << "Sisipkan data : ";
+   cin >> input;
+
+   temp = new node;
+   temp->angka = input;
+   temp->next = NULL;
+   temp->prev = NULL;
+
+   temp2 = ptr->prev;
+   temp2->next = temp;
+   temp->prev = temp2;
+	temp->next = ptr;
+   ptr->prev = temp;
+
+
+
+   cout << "SISIP SELESAI :)" << endl;
+}
+
+// fungsi dibawah untuk menghapus node yang ingin dihapus oleh user
+void hapusNode()
+{
+	cout << "Input data yang ingin dihapus : ";
+   cin >> data;
+
+   ptr = head;
+
+   while (data != ptr->angka)
+   {
+   	ptr = ptr->next;
+   }
+
+	temp2 = ptr->prev;
+   temp2->next = ptr->next;
+   temp = ptr->next;
+   temp->prev = ptr->prev;
+
+   free(ptr);
+
+   cout << "data telah terhapus" << endl;
+}
+
+// fungsi dibawah untuk menghapus NODE depan
+void hapusDepan()
+{
+	if (head != NULL)
+   {
+   	ptr = head;
+		head = ptr->next;
+      head->prev = NULL;
+      free(ptr);
+      cout << "Node HEAD terhapus" << endl;
+   }
+   else
+   {
+   	cout << "head masih NULL" << endl;
+   }
+}
+
+// fungsi dibawah untuk menghapus data last;
+void hapusLast()
+{
+	if (head != NULL)
+   {
+   	temp = last;
+      last = temp->prev;
+      last->next = NULL;
+      free(temp);
+
+      cout << "Node LAST terhapus" << endl;
    }
    else
    {
@@ -251,49 +261,52 @@ void tampilCell()
    }
 }
 
-void hapusDepan()
-{
-  	ptr = head;
-   head = ptr->next;
-   free(ptr);
-
-   cout << "Node sudah terhapus" << endl;
-}
-
-void hapusBelakang()
-{
- 	ptr = head;
-
-   while (ptr->next != last)
-   {
-   	ptr = ptr->next;
-   }
-
-   free(last);
-   last = ptr;
-   last->next = NULL;
-
-}
-
-void hapusTengah()
+// fungsi ini digunakan untuk menyisip node baru pada head
+void sisipHead()
 {
 	if (head != NULL)
    {
-   	cout << "Hapus data setelah : ";
-      gets(input);
+   	cout << "Input data : ";
+      cin >> data;
 
-      ptr = head;
+      temp = new node;
+      temp->next = NULL;
+      temp->prev = NULL;
+      temp->angka = data;
 
-      while (strcmp(ptr->name, input))
-      {
-      	ptr = ptr->next;
-         temp = ptr;
-      }
-      cout << "Setelah memory " << temp << endl;
+      temp->next = head;
+      head->prev = temp;
+      head = temp;
+
+      cout << "Node telah ditambahkan di head" << endl;
    }
+   else
+   {
+   	cout << "Head masih NULL" << endl;
+   }
+}
 
-   // proses
-   ptr = temp->next;
-   temp->next = temp->next->next;
-   free(ptr);
+// fungsi dibawah untuk menyisip node paling akhir
+void sisipLast()
+{
+  	if (head != NULL)
+   {
+   	cout << "Input data : ";
+      cin >> data;
+
+      temp = new node;
+      temp->next = NULL;
+      temp->prev = NULL;
+      temp->angka = data;
+
+      last->next = temp;
+      temp->prev = last;
+      last = temp;
+
+      cout << "Node telah ditambahkan di last" << endl;
+   }
+   else
+   {
+   	cout << "Head masih NULL" << endl;
+   }
 }
